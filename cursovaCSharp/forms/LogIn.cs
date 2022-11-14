@@ -42,7 +42,7 @@ namespace cursovaCSharp
                 {
                     if (hotel.User[i].IsPasswordTrue(textBox2.Text))
                     {
-                        SearchHotelRoom searchHotelRoom = new SearchHotelRoom(hotel, hotel.User[i]);
+                        SearchHotelRoomTwo searchHotelRoom = new SearchHotelRoomTwo(hotel, hotel.User[i]);
                         searchHotelRoom.ShowDialog();
                         return;
                     }

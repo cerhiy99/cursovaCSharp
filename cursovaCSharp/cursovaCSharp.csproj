@@ -95,13 +95,11 @@
     <Compile Include="forms\Register.Designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
-    <Compile Include="D:\Робочий Стіл\cursova\SearchHotelRoom.cs">
+    <Compile Include="forms\SearchHotelRoomTwo.cs">
       <SubType>Form</SubType>
-      <Link>forms\SearchHotelRoom.cs</Link>
     </Compile>
-    <Compile Include="D:\Робочий Стіл\cursova\SearchHotelRoom.Designer.cs">
-      <DependentUpon>SearchHotelRoom.cs</DependentUpon>
-      <Link>forms\SearchHotelRoom.Designer.cs</Link>
+    <Compile Include="forms\SearchHotelRoomTwo.Designer.cs">
+      <DependentUpon>SearchHotelRoomTwo.cs</DependentUpon>
     </Compile>
     <Compile Include="forms\SettingAccount.cs">
       <SubType>Form</SubType>
@@ -120,9 +118,8 @@
     <EmbeddedResource Include="forms\Register.resx">
       <DependentUpon>Register.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="D:\Робочий Стіл\cursova\SearchHotelRoom.resx">
-      <DependentUpon>SearchHotelRoom.cs</DependentUpon>
-      <Link>forms\SearchHotelRoom.resx</Link>
+    <EmbeddedResource Include="forms\SearchHotelRoomTwo.resx">
+      <DependentUpon>SearchHotelRoomTwo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\SettingAccount.resx">
       <DependentUpon>SettingAccount.cs</DependentUpon>
