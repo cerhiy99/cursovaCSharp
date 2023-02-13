@@ -28,18 +28,25 @@ namespace cursovaCSharp
         public static Hotel SetHotel()//статичний метод для діставання даних з файлу
         {
             string json = "";
-            using (Stream stream = new FileStream("hotel.json", FileMode.Open))
+            try
             {
-                using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+                using (Stream stream = new FileStream("hotel.json", FileMode.Open))
                 {
-                    while (!reader.EndOfStream)
+                    using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
                     {
-                        json += reader.ReadLine();
+                        while (!reader.EndOfStream)
+                        {
+                            json += reader.ReadLine();
+                        }
                     }
                 }
+                Hotel bank = JsonConvert.DeserializeObject<Hotel>(json);
+                return bank;
             }
-            Hotel bank = JsonConvert.DeserializeObject<Hotel>(json);
-            return bank;
+            catch(Exception ex)
+            {
+                return new Hotel();
+            }
         }
 
         [STAThread]

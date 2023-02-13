@@ -151,6 +151,7 @@ namespace cursovaCSharp.classes
         }
         public string GetUserWhoTheMostBooked()
         {
+            if (User.Count == 0) return "Поки не було жодного клієнта";
             int max = int.MinValue;
             int idx = 0;
             for (int i = 0; i < User.Count; i++)
@@ -174,6 +175,8 @@ namespace cursovaCSharp.classes
         }
         public string GetThePopularSearch()//получити найпопулярніший запит
         {
+
+            if (History.Count == 0) return "ще не було жодних пошуків";
             List<(string str, int count)> temp = new List<(string, int)>();
             for (int i = 0; i < History.Count; i++)
             {
