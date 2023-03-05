@@ -28,7 +28,9 @@ namespace cursovaCSharp.forms
         }
         private void SearchRooms()
         {
-            hotel.History.Add($"мінімальна кількість зірок: {minCountStar.Value}, мінімальні ціна: {numericUpDown2.Value}, максимальна ціна: {numericUpDown1.Value}");
+            hotel.History.CountMinStar.Add(int.Parse(minCountStar.Value.ToString()));
+            hotel.History.CountMinPrice.Add(int.Parse(numericUpDown1.Value.ToString()));
+            hotel.History.CountMaxPrice.Add(int.Parse(numericUpDown2.Value.ToString()));
             cmbBoxListRoom.Items.Clear();
             List<HotelRoom> rooms = hotel.SearchHotelRoom(((int)minCountStar.Value), ((int)numericUpDown2.Value), ((int)numericUpDown1.Value),
                 dateTimePicker1.Value, dateTimePicker2.Value, out isSearchTrue, alternativeStart, alternativeFinish);//пошук номерів які підходять

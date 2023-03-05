@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using NuGet.Protocol;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +8,18 @@ using System.Threading.Tasks;
 
 namespace cursovaCSharp.classes
 {
+    [Serializable]
     public class Day
     {
+        [JsonProperty("NumberDay")]
         public int NumberDay { get; set; }
+        [JsonProperty("Mounth")]
         public int Mounth { get; set; }
+        [JsonProperty("Year")]
         public int Year { get; set; }
+        [JsonProperty("IsFree")]
         public bool IsFree { get; set; }
+        [JsonProperty("HumanWhoReservation")]
         public User HumanWhoReservation { get; set; }
         public Day(int numberDay, int mounth, int year)
         {

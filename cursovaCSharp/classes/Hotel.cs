@@ -11,7 +11,6 @@ namespace cursovaCSharp.classes
     [Serializable]
     public class Hotel
     {
-
         [JsonProperty("User")]
         public List<User> User { get; set; }
 
@@ -19,12 +18,12 @@ namespace cursovaCSharp.classes
         public List<HotelRoom> HotelRoom { get; set; }
 
         [JsonProperty("History")]
-        public List<string> History { get; set; }
+        public History History { get; set; }
         public Hotel()
         {
             User = new List<User>();
             HotelRoom = new List<HotelRoom>();
-            History = new List<string>();
+            History = new History();
         }
         public bool IsEmailFree(string email)
         {
@@ -172,46 +171,6 @@ namespace cursovaCSharp.classes
                 if (User[i].CountReservation > 2) users.Add(User[i].ToString());
             }
             return users;
-        }
-        public string GetThePopularSearch()//получити найпопулярніший запит
-        {
-
-            if (History.Count == 0) return "ще не було жодних пошуків";
-            List<(string str, int count)> temp = new List<(string, int)>();
-            for (int i = 0; i < History.Count; i++)
-            {
-                bool isSearchTrue = true;
-                for (int j = 0; j < temp.Count; j++)
-                {
-                    if (temp[j].str == History[i])
-                    {
-                        isSearchTrue = false;
-                        break;
-                    }
-                }
-                if (isSearchTrue)
-                {
-                    temp.Add((History[i], 0));
-                    for (int j = 0; j < History.Count; j++)
-                    {
-                        if (History[j] == temp[temp.Count - 1].str)
-                        {
-                            temp[temp.Count - 1] = (temp[temp.Count - 1].str, temp[temp.Count-1].count+1);
-                        }
-                    }
-                }
-            }
-            int idx = 0;
-            int max = int.MinValue;
-            for (int i = 0; i < temp.Count; i++)
-            {
-                if (temp[i].count > max)
-                {
-                    max = temp[i].count;
-                    idx = i;
-                }
-            }
-            return temp[idx].str;
         }
     }
 }

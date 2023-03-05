@@ -59,6 +59,12 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUpDownCountPlace)).BeginInit();
@@ -440,9 +446,9 @@
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label13.Location = new System.Drawing.Point(14, 20);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(193, 20);
+            this.label13.Size = new System.Drawing.Size(187, 20);
             this.label13.TabIndex = 4;
-            this.label13.Text = "найпопулярніший запит:";
+            this.label13.Text = "найпопулярніші запити:";
             // 
             // label14
             // 
@@ -454,12 +460,72 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label20);
+            this.panel1.Controls.Add(this.label19);
+            this.panel1.Controls.Add(this.label18);
+            this.panel1.Controls.Add(this.label17);
+            this.panel1.Controls.Add(this.label16);
+            this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Location = new System.Drawing.Point(36, 408);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(529, 112);
             this.panel1.TabIndex = 5;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(22, 44);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(188, 13);
+            this.label15.TabIndex = 5;
+            this.label15.Text = "середня мінімальна кількість зірок:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(216, 44);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(41, 13);
+            this.label16.TabIndex = 6;
+            this.label16.Text = "label16";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(216, 72);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(41, 13);
+            this.label17.TabIndex = 7;
+            this.label17.Text = "label17";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(22, 72);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(156, 13);
+            this.label18.TabIndex = 8;
+            this.label18.Text = "середня мінімальна вартість:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(314, 44);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(145, 13);
+            this.label19.TabIndex = 9;
+            this.label19.Text = "середня максимальна ціна";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(314, 72);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(41, 13);
+            this.label20.TabIndex = 10;
+            this.label20.Text = "label20";
             // 
             // AdminPanel
             // 
@@ -523,5 +589,11 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
     }
 }

@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="classes\Day.cs" />
+    <Compile Include="classes\History.cs" />
     <Compile Include="classes\Hotel.cs" />
     <Compile Include="classes\HotelRoom.cs" />
     <Compile Include="classes\Human.cs" />

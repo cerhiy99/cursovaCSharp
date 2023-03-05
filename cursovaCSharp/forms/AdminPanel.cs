@@ -26,7 +26,9 @@ namespace cursovaCSharp.forms
             {
                 listBox1.Items.Add(listUsers[i]);
             }
-            label14.Text = hotel.GetThePopularSearch();
+            label16.Text = hotel.History.GetAverageMinStar().ToString();
+            label17.Text = hotel.History.GetAverageMinPrice().ToString();
+            label20.Text = hotel.History.GetAverageMaxPrice().ToString();
         }
 
         private void nUpDwnCountStar_ValueChanged(object sender, EventArgs e)//Змінення кількості зірок
