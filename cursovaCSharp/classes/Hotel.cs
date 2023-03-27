@@ -57,7 +57,7 @@ namespace cursovaCSharp.classes
             return true;
         }
         public List<HotelRoom> SearchAlternative(int minCountStar, int minPrice, int maxPrice, DateTime startDate,
-            DateTime finishTime, out bool isSearchTrue, List<DateTime> alternativeStartTime, List<DateTime> alternativeFinishTime)
+            DateTime finishTime, List<DateTime> alternativeStartTime, List<DateTime> alternativeFinishTime)
         {
             List<HotelRoom> rooms = new List<HotelRoom>();
             isSearchTrue = false;
@@ -92,7 +92,7 @@ namespace cursovaCSharp.classes
             return rooms;
         }
         public List<HotelRoom> SearchHotelRoom(int minCountStar, int minPrice, int maxPrice, DateTime startDate,
-            DateTime finishTime, out bool isSearchTrue, List<DateTime> alternativeStartTime, List<DateTime> alternativeFinishTime)//пошук готелей які підходять по харектеристиці
+            DateTime finishTime)//пошук готелей які підходять по харектеристиці
         {
             List<HotelRoom> rooms = new List<HotelRoom>();//номера які підходять
             for (int i = 0; i < HotelRoom.Count; i++)
@@ -122,15 +122,8 @@ namespace cursovaCSharp.classes
                     }
                 }
             }
-            if (rooms.Count == 0)//якщо не було знайдено номерів які повнісью влаштовують то шукається альтернатива яка частково влаштує
-            {
-               return SearchAlternative(minCountStar, minPrice, maxPrice, startDate, finishTime, out isSearchTrue, alternativeStartTime, alternativeFinishTime);
-            }
-            else
-            {
-                isSearchTrue = true;
-                return rooms;
-            }
+
+            return rooms;
         }
         public void Book(DateTime startDate, DateTime finishDate, User user, HotelRoom room)//бронювати
         {
