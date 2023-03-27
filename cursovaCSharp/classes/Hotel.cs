@@ -16,14 +16,14 @@ namespace cursovaCSharp.classes
         public List<User> User { get; set; }
 
         [JsonProperty("HotelRoom")]
-        public List<HotelRoom> HotelRoom { get; set; }
+        public List<HotelRoom> HotelRooms { get; set; }
 
         [JsonProperty("History")]
         public History History { get; set; }
         public Hotel()
         {
             User = new List<User>();
-            HotelRoom = new List<HotelRoom>();
+            HotelRooms = new List<HotelRoom>();
             History = new History();
         }
         public bool IsEmailFree(string email)
@@ -40,7 +40,7 @@ namespace cursovaCSharp.classes
         }
         public void AddHotelRoom(HotelRoom hotelRoom)
         {
-            HotelRoom.Add(hotelRoom);
+            HotelRooms.Add(hotelRoom);
         }
         public static bool IsDateDayMore(DateTime date, BookingDateDetails day)//чи дата дня більша
         {
@@ -60,22 +60,22 @@ namespace cursovaCSharp.classes
             DateTime finishTime, List<DateTime> alternativeStartTime, List<DateTime> alternativeFinishTime)
         {
             List<HotelRoom> rooms = new List<HotelRoom>();
-            for (int i = 0; i < HotelRoom.Count; i++)
+            for (int i = 0; i < HotelRooms.Count; i++)
             {
-                if (minCountStar <= HotelRoom[i].CountStar && minPrice <= HotelRoom[i].Price && maxPrice >= HotelRoom[i].Price)
+                if (minCountStar <= HotelRooms[i].CountStar && minPrice <= HotelRooms[i].Price && maxPrice >= HotelRooms[i].Price)
                 {
                     List<(int idx, int idxI)> idx = new List<(int, int)>();
                     var tempDate = startDate;
                     while (tempDate.Day != finishTime.Day || tempDate.Month != finishTime.Month ||
                             tempDate.Year != finishTime.Year)
                     {
-                        for (int j = 0; j < HotelRoom[i].DateReservation.Count; j++)
+                        for (int j = 0; j < HotelRooms[i].DateReservation.Count; j++)
                         {
-                            if (HotelRoom[i].DateReservation[j].IsFree && isDateSame(tempDate, HotelRoom[i].DateReservation[j]))
+                            if (HotelRooms[i].DateReservation[j].IsFree && isDateSame(tempDate, HotelRooms[i].DateReservation[j]))
                             {
                                 if (idx.Count == 0 || idx[idx.Count - 1].idxI != i)
                                 {
-                                    rooms.Add(HotelRoom[i]);
+                                    rooms.Add(HotelRooms[i]);
                                     alternativeStartTime.Add(tempDate);
                                     idx.Add((idx.Count + 1, i));
                                 }
@@ -93,37 +93,34 @@ namespace cursovaCSharp.classes
         public List<HotelRoom> SearchHotelRoom(int minCountStar, int minPrice, int maxPrice, DateTime startDate,
             DateTime finishTime)//пошук готелей які підходять по харектеристиці
         {
-            List<HotelRoom> rooms = new List<HotelRoom>();//номера які підходять
-            for (int i = 0; i < HotelRoom.Count; i++)
+            List<HotelRoom> rooms = HotelRooms.FindAll(item => (minCountStar <= item.CountStar && minPrice <= item.Price && maxPrice >= item.Price));
+            List<HotelRoom> roomsForDates = new List<HotelRoom>();
+            foreach (var room in rooms)
             {
-                if (minCountStar <= HotelRoom[i].CountStar && minPrice <= HotelRoom[i].Price && maxPrice >= HotelRoom[i].Price)
+                bool roomAvailableForAllPeriod = false;
+                var tempDate = startDate;
+                while (tempDate.Day != finishTime.Day || tempDate.Month != finishTime.Month ||
+                    tempDate.Year != finishTime.Year)
                 {
-                    bool roomAvailableForAllPeriod = false;
-                    var tempDate = startDate;
-                    while (tempDate.Day != finishTime.Day || tempDate.Month != finishTime.Month ||
-                        tempDate.Year != finishTime.Year)
+                    roomAvailableForAllPeriod = false;
+                    foreach (var dateReservation in room.DateReservation)
                     {
-                        roomAvailableForAllPeriod = false;
-                        for (int j = 0; j < HotelRoom[i].DateReservation.Count; j++)
+                        if (dateReservation.IsFree && isDateSame(tempDate, dateReservation))
                         {
-                            if (HotelRoom[i].DateReservation[j].IsFree && 
-                                isDateSame(tempDate, HotelRoom[i].DateReservation[j]))
-                            {
-                                tempDate = tempDate.AddDays(1);
-                                roomAvailableForAllPeriod = true;
-                                break;
-                            }
+                            tempDate = tempDate.AddDays(1);
+                            roomAvailableForAllPeriod = true;
+                            break;
                         }
-                        if (!roomAvailableForAllPeriod) break;
                     }
-                    if (roomAvailableForAllPeriod)
-                    {
-                        rooms.Add(HotelRoom[i]);
-                    }
+                    if (!roomAvailableForAllPeriod) break;
                 }
-            }
+                if (roomAvailableForAllPeriod)
+                {
+                    roomsForDates.Add(room);
+                }
 
-            return rooms;
+            };
+            return roomsForDates;
         }
         public void Book(DateTime startDate, DateTime finishDate, User user, HotelRoom room)//бронювати
         {

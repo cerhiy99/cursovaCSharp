@@ -70,11 +70,11 @@ namespace cursovaCSharp.forms
         {
             if (bookingAvailable)
             {
-                hotel.Book(dateTimePicker1.Value, dateTimePicker2.Value, user, hotel.HotelRoom[cmbBoxListRoom.SelectedIndex]);
+                hotel.Book(dateTimePicker1.Value, dateTimePicker2.Value, user, hotel.HotelRooms[cmbBoxListRoom.SelectedIndex]);
             }
             else
             {
-                hotel.Book(alternativeStart[cmbBoxListRoom.SelectedIndex], alternativeFinish[cmbBoxListRoom.SelectedIndex], user, hotel.HotelRoom[cmbBoxListRoom.SelectedIndex]);
+                hotel.Book(alternativeStart[cmbBoxListRoom.SelectedIndex], alternativeFinish[cmbBoxListRoom.SelectedIndex], user, hotel.HotelRooms[cmbBoxListRoom.SelectedIndex]);
             }
             MessageBox.Show("Заброньовано");
             SearchRooms();

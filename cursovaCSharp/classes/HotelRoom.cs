@@ -58,5 +58,6 @@ namespace cursovaCSharp.classes
             HouseholdAppliances = householdAppliances;
             Amenities = amenities;
         }
+        
     }
 }
