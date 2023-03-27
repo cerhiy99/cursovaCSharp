@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,7 +16,7 @@ namespace cursovaCSharp.forms
     {
         private Hotel hotel;
         private User user;
-        private List<HotelRoom> searchRoom = new List<HotelRoom>();
+        private List<HotelRoom> availableRooms = new List<HotelRoom>();
         private bool bookingAvailable;
         private List<DateTime> alternativeStart = new List<DateTime>();
         private List<DateTime> alternativeFinish = new List<DateTime>();
@@ -35,20 +36,32 @@ namespace cursovaCSharp.forms
         private void SearchRooms()
         {
             cmbBoxListRoom.Items.Clear();
-            List<HotelRoom> rooms = hotel.SearchHotelRoom(((int)minCountStar.Value), ((int)numericUpDown2.Value), ((int)numericUpDown1.Value),
-                dateTimePicker1.Value, dateTimePicker2.Value, out bookingAvailable, alternativeStart, alternativeFinish);//пошук номерів які підходять
-            
-            searchRoom = rooms;
+            availableRooms = hotel.SearchHotelRoom(((int)minCountStar.Value), ((int)numericUpDown2.Value), ((int)numericUpDown1.Value),
+                dateTimePicker1.Value, dateTimePicker2.Value);//пошук номерів які підходять
+            if (availableRooms.Count == 0)
+            {
+                bookingAvailable = false;
+                availableRooms = hotel.SearchAlternative(((int)minCountStar.Value), ((int)numericUpDown2.Value), ((int)numericUpDown1.Value), dateTimePicker1.Value, dateTimePicker2.Value, alternativeStart, alternativeFinish);
+            }
+            else
+            {
+                bookingAvailable = true;
+            }
+            UpdateSearchWindowUi();
+        }
+
+        private void UpdateSearchWindowUi()
+        {
             availebleRoomsContainer.Visible = true;
-            for (int i = 0; i < rooms.Count; i++)
+            for (int i = 0; i < availableRooms.Count; i++)
             {
                 cmbBoxListRoom.Items.Add(i + 1);
             }
             amenitiesPanel.Visible = false;
             selectedRoomDetails.Visible = false;
             bookingStatusPanel.Visible = !bookingAvailable;
-            //cmbBoxListRoom.SelectedIndex = 0;
         }
+
         public void SetInfoForUser()//показати інформацію про користувача
         {
             label6.Text = user.ToString();
@@ -82,7 +95,7 @@ namespace cursovaCSharp.forms
 
         private void OnRoomSelected(object sender, EventArgs e)//вибрали інший номер
         {
-            ShowRoom(searchRoom[cmbBoxListRoom.SelectedIndex]);
+            ShowRoom(availableRooms[cmbBoxListRoom.SelectedIndex]);
             if (cmbBoxListRoom.SelectedIndex != -1) selectedRoomDetails.Visible = true;
         }
         public void ShowRoom(HotelRoom hotelRoom)//показати номер

@@ -57,10 +57,9 @@ namespace cursovaCSharp.classes
             return true;
         }
         public List<HotelRoom> SearchAlternative(int minCountStar, int minPrice, int maxPrice, DateTime startDate,
-            DateTime finishTime, out bool isSearchTrue, List<DateTime> alternativeStartTime, List<DateTime> alternativeFinishTime)
+            DateTime finishTime, List<DateTime> alternativeStartTime, List<DateTime> alternativeFinishTime)
         {
             List<HotelRoom> rooms = new List<HotelRoom>();
-            isSearchTrue = false;
             for (int i = 0; i < HotelRoom.Count; i++)
             {
                 if (minCountStar <= HotelRoom[i].CountStar && minPrice <= HotelRoom[i].Price && maxPrice >= HotelRoom[i].Price)
@@ -92,45 +91,39 @@ namespace cursovaCSharp.classes
             return rooms;
         }
         public List<HotelRoom> SearchHotelRoom(int minCountStar, int minPrice, int maxPrice, DateTime startDate,
-            DateTime finishTime, out bool isSearchTrue, List<DateTime> alternativeStartTime, List<DateTime> alternativeFinishTime)//пошук готелей які підходять по харектеристиці
+            DateTime finishTime)//пошук готелей які підходять по харектеристиці
         {
             List<HotelRoom> rooms = new List<HotelRoom>();//номера які підходять
             for (int i = 0; i < HotelRoom.Count; i++)
             {
                 if (minCountStar <= HotelRoom[i].CountStar && minPrice <= HotelRoom[i].Price && maxPrice >= HotelRoom[i].Price)
                 {
-                    bool isRoomTrue = false;
+                    bool roomAvailableForAllPeriod = false;
                     var tempDate = startDate;
                     while (tempDate.Day != finishTime.Day || tempDate.Month != finishTime.Month ||
                         tempDate.Year != finishTime.Year)
                     {
-                        isRoomTrue = false;
+                        roomAvailableForAllPeriod = false;
                         for (int j = 0; j < HotelRoom[i].DateReservation.Count; j++)
                         {
-                            if (HotelRoom[i].DateReservation[j].IsFree && isDateSame(tempDate, HotelRoom[i].DateReservation[j]))
+                            if (HotelRoom[i].DateReservation[j].IsFree && 
+                                isDateSame(tempDate, HotelRoom[i].DateReservation[j]))
                             {
                                 tempDate = tempDate.AddDays(1);
-                                isRoomTrue = true;
+                                roomAvailableForAllPeriod = true;
                                 break;
                             }
                         }
-                        if (!isRoomTrue) break;
+                        if (!roomAvailableForAllPeriod) break;
                     }
-                    if (isRoomTrue)
+                    if (roomAvailableForAllPeriod)
                     {
                         rooms.Add(HotelRoom[i]);
                     }
                 }
             }
-            if (rooms.Count == 0)//якщо не було знайдено номерів які повнісью влаштовують то шукається альтернатива яка частково влаштує
-            {
-               return SearchAlternative(minCountStar, minPrice, maxPrice, startDate, finishTime, out isSearchTrue, alternativeStartTime, alternativeFinishTime);
-            }
-            else
-            {
-                isSearchTrue = true;
-                return rooms;
-            }
+
+            return rooms;
         }
         public void Book(DateTime startDate, DateTime finishDate, User user, HotelRoom room)//бронювати
         {
