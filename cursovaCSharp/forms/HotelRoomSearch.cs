@@ -37,6 +37,7 @@ namespace cursovaCSharp.forms
             cmbBoxListRoom.Items.Clear();
             List<HotelRoom> rooms = hotel.SearchHotelRoom(((int)minCountStar.Value), ((int)numericUpDown2.Value), ((int)numericUpDown1.Value),
                 dateTimePicker1.Value, dateTimePicker2.Value, out bookingAvailable, alternativeStart, alternativeFinish);//пошук номерів які підходять
+            
             searchRoom = rooms;
             availebleRoomsContainer.Visible = true;
             for (int i = 0; i < rooms.Count; i++)
@@ -54,8 +55,14 @@ namespace cursovaCSharp.forms
         }
         private void BookRoomButtonClick(object sender, EventArgs e)//забронювати
         {
-            if (bookingAvailable) hotel.Book(dateTimePicker1.Value, dateTimePicker2.Value, user, hotel.HotelRoom[cmbBoxListRoom.SelectedIndex]);
-            else hotel.Book(alternativeStart[cmbBoxListRoom.SelectedIndex], alternativeFinish[cmbBoxListRoom.SelectedIndex], user, hotel.HotelRoom[cmbBoxListRoom.SelectedIndex]);
+            if (bookingAvailable)
+            {
+                hotel.Book(dateTimePicker1.Value, dateTimePicker2.Value, user, hotel.HotelRoom[cmbBoxListRoom.SelectedIndex]);
+            }
+            else
+            {
+                hotel.Book(alternativeStart[cmbBoxListRoom.SelectedIndex], alternativeFinish[cmbBoxListRoom.SelectedIndex], user, hotel.HotelRoom[cmbBoxListRoom.SelectedIndex]);
+            }
             MessageBox.Show("Заброньовано");
             SearchRooms();
         }

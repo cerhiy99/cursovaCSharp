@@ -56,6 +56,41 @@ namespace cursovaCSharp.classes
             if (date.Day != day.NumberDay) return false;
             return true;
         }
+        public List<HotelRoom> SearchAlternative(int minCountStar, int minPrice, int maxPrice, DateTime startDate,
+            DateTime finishTime, out bool isSearchTrue, List<DateTime> alternativeStartTime, List<DateTime> alternativeFinishTime)
+        {
+            List<HotelRoom> rooms = new List<HotelRoom>();
+            isSearchTrue = false;
+            for (int i = 0; i < HotelRoom.Count; i++)
+            {
+                if (minCountStar <= HotelRoom[i].CountStar && minPrice <= HotelRoom[i].Price && maxPrice >= HotelRoom[i].Price)
+                {
+                    List<(int idx, int idxI)> idx = new List<(int, int)>();
+                    var tempDate = startDate;
+                    while (tempDate.Day != finishTime.Day || tempDate.Month != finishTime.Month ||
+                            tempDate.Year != finishTime.Year)
+                    {
+                        for (int j = 0; j < HotelRoom[i].DateReservation.Count; j++)
+                        {
+                            if (HotelRoom[i].DateReservation[j].IsFree && isDateSame(tempDate, HotelRoom[i].DateReservation[j]))
+                            {
+                                if (idx.Count == 0 || idx[idx.Count - 1].idxI != i)
+                                {
+                                    rooms.Add(HotelRoom[i]);
+                                    alternativeStartTime.Add(tempDate);
+                                    idx.Add((idx.Count + 1, i));
+                                }
+                                if (alternativeStartTime.Count > alternativeFinishTime.Count) alternativeFinishTime.Add(tempDate);
+                                else alternativeFinishTime[alternativeFinishTime.Count - 1] = tempDate;
+                                break;
+                            }
+                        }
+                        tempDate = tempDate.AddDays(1);
+                    }
+                }
+            }
+            return rooms;
+        }
         public List<HotelRoom> SearchHotelRoom(int minCountStar, int minPrice, int maxPrice, DateTime startDate,
             DateTime finishTime, out bool isSearchTrue, List<DateTime> alternativeStartTime, List<DateTime> alternativeFinishTime)//пошук готелей які підходять по харектеристиці
         {
@@ -89,36 +124,7 @@ namespace cursovaCSharp.classes
             }
             if (rooms.Count == 0)//якщо не було знайдено номерів які повнісью влаштовують то шукається альтернатива яка частково влаштує
             {
-                isSearchTrue = false;
-                for (int i = 0; i < HotelRoom.Count; i++)
-                {
-                    if (minCountStar <= HotelRoom[i].CountStar && minPrice <= HotelRoom[i].Price && maxPrice >= HotelRoom[i].Price)
-                    {
-                        List<(int idx, int idxI)> idx = new List<(int, int)>();
-                        var tempDate = startDate;
-                        while (tempDate.Day != finishTime.Day || tempDate.Month != finishTime.Month ||
-                                tempDate.Year != finishTime.Year)
-                        {
-                            for (int j = 0; j < HotelRoom[i].DateReservation.Count; j++)
-                            {
-                                if (HotelRoom[i].DateReservation[j].IsFree && isDateSame(tempDate, HotelRoom[i].DateReservation[j]))
-                                {
-                                    if (idx.Count == 0 || idx[idx.Count - 1].idxI != i)
-                                    {
-                                        rooms.Add(HotelRoom[i]);
-                                        alternativeStartTime.Add(tempDate);
-                                        idx.Add((idx.Count + 1, i));
-                                    }
-                                    if (alternativeStartTime.Count > alternativeFinishTime.Count) alternativeFinishTime.Add(tempDate);
-                                    else alternativeFinishTime[alternativeFinishTime.Count - 1] = tempDate;
-                                    break;
-                                }
-                            }
-                            tempDate = tempDate.AddDays(1);
-                        }
-                    }
-                }
-                return rooms;
+               return SearchAlternative(minCountStar, minPrice, maxPrice, startDate, finishTime, out isSearchTrue, alternativeStartTime, alternativeFinishTime);
             }
             else
             {
