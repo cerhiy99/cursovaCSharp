@@ -27,10 +27,10 @@ namespace cursovaCSharp
             register.ShowDialog();
         }
 
-        private void button1_Click(object sender, EventArgs e)//кнопка увійти, провіряє логін і пароль і якщо логін з паролем правильні
+        private void LoginButtonClick(object sender, EventArgs e)//кнопка увійти, провіряє логін і пароль і якщо логін з паролем правильні
                                                                 //кидає або на форму адміна або на форму користувача
         {
-            if (textBox1.Text == "admin" && textBox2.Text == "admin")
+            if (loginInput.Text == "admin" && passwordInput.Text == "admin")
             {
                 AdminPanel adminPanel = new AdminPanel(hotel);
                 adminPanel.ShowDialog();    
@@ -38,24 +38,29 @@ namespace cursovaCSharp
             }
             for (int i = 0; i < hotel.User.Count; i++)//цикл який визначає який це користувач і провіряє чи правильний пароль
             {
-                if (hotel.User[i].Email == textBox1.Text)
+                if (hotel.User[i].Email == loginInput.Text)
                 {
-                    if (hotel.User[i].IsPasswordTrue(textBox2.Text))
+                    if (hotel.User[i].IsPasswordTrue(passwordInput.Text))
                     {
-                        SearchHotelRoomTwo searchHotelRoom = new SearchHotelRoomTwo(hotel, hotel.User[i]);
+                        SearchHotelRoom searchHotelRoom = new SearchHotelRoom(hotel, hotel.User[i]);
                         searchHotelRoom.ShowDialog();
                         return;
                     }
                     else
                     {
-                        label3.Text = "не правильний пароль";
-                        label3.Visible = true;
+                        labelError.Text = "не правильний пароль";
+                        labelError.Visible = true;
                         return;
                     }
                 }
             }
-            label3.Text = "не правильна почта";
-            label3.Visible = true;
+            labelError.Text = "не правильна почта";
+            labelError.Visible = true;
+
+        }
+
+        private void passwordInput_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }

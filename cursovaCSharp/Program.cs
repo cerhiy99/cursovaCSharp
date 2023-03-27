@@ -25,7 +25,7 @@ namespace cursovaCSharp
                 }
             }
         }
-        public static Hotel SetHotel()//статичний метод для діставання даних з файлу
+        public static Hotel GetHotel()//статичний метод для діставання даних з файлу
         {
             string json = "";
             try
@@ -40,8 +40,8 @@ namespace cursovaCSharp
                         }
                     }
                 }
-                Hotel bank = JsonConvert.DeserializeObject<Hotel>(json);
-                return bank;
+                Hotel hotel = JsonConvert.DeserializeObject<Hotel>(json);
+                return hotel;
             }
             catch(Exception ex)
             {
@@ -52,7 +52,7 @@ namespace cursovaCSharp
         [STAThread]
         static void Main()
         {
-            Hotel hotel = SetHotel();
+            Hotel hotel = GetHotel();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

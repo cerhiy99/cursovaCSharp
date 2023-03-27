@@ -41,17 +41,17 @@ namespace cursovaCSharp.classes
         {
             HotelRoom.Add(hotelRoom);
         }
-        public static bool IsDateDayMore(DateTime date, Day day)//чи дата дня більша
+        public static bool IsDateDayMore(DateTime date, BookingDayDetails day)//чи дата дня більша
         {
             if (date.Year != day.Year) return date.Year < day.Year;
-            if (date.Month != day.Mounth) return date.Month < day.Mounth;
+            if (date.Month != day.Month) return date.Month < day.Month;
             if (date.Day != day.NumberDay) return date.Day < day.NumberDay;
             return false;
         }
-        public bool isDateSame(DateTime date, Day day)
+        public bool isDateSame(DateTime date, BookingDayDetails day)
         {
             if (date.Year != day.Year) return false;
-            if (date.Month != day.Mounth) return false;
+            if (date.Month != day.Month) return false;
             if (date.Day != day.NumberDay) return false;
             return true;
         }

@@ -11,15 +11,15 @@ using System.Windows.Forms;
 
 namespace cursovaCSharp.forms
 {
-    public partial class SearchHotelRoomTwo : Form
+    public partial class SearchHotelRoom : Form
     {
         private Hotel hotel;
         private User user;
         private List<HotelRoom> searchRoom = new List<HotelRoom>();
-        private bool isSearchTrue;
+        private bool bookingAvailable;
         private List<DateTime> alternativeStart = new List<DateTime>();
         private List<DateTime> alternativeFinish = new List<DateTime>();
-        public SearchHotelRoomTwo(Hotel hotel, User user/*користувач який залогінився*/)
+        public SearchHotelRoom(Hotel hotel, User user/*користувач який залогінився*/)
         {
             this.user = user;
             this.hotel = hotel;
@@ -33,50 +33,50 @@ namespace cursovaCSharp.forms
             hotel.History.CountMaxPrice.Add(int.Parse(numericUpDown2.Value.ToString()));
             cmbBoxListRoom.Items.Clear();
             List<HotelRoom> rooms = hotel.SearchHotelRoom(((int)minCountStar.Value), ((int)numericUpDown2.Value), ((int)numericUpDown1.Value),
-                dateTimePicker1.Value, dateTimePicker2.Value, out isSearchTrue, alternativeStart, alternativeFinish);//пошук номерів які підходять
+                dateTimePicker1.Value, dateTimePicker2.Value, out bookingAvailable, alternativeStart, alternativeFinish);//пошук номерів які підходять
             searchRoom = rooms;
-            groupBox1.Visible = true;
+            availebleRoomsContainer.Visible = true;
             for (int i = 0; i < rooms.Count; i++)
             {
                 cmbBoxListRoom.Items.Add(i + 1);
             }
-            panelAmenities.Visible = false;
-            panel1.Visible = false;
-            panelAlternative.Visible = !isSearchTrue;
+            amenitiesPanel.Visible = false;
+            selectedRoomDetails.Visible = false;
+            bookingStatusPanel.Visible = !bookingAvailable;
             //cmbBoxListRoom.SelectedIndex = 0;
         }
         public void SetInfoForUser()//показати інформацію про користувача
         {
             label6.Text = user.ToString();
         }
-        private void button3_Click(object sender, EventArgs e)//забронювати
+        private void BookRoomButtonClick(object sender, EventArgs e)//забронювати
         {
-            if (isSearchTrue) hotel.Book(dateTimePicker1.Value, dateTimePicker2.Value, user, hotel.HotelRoom[cmbBoxListRoom.SelectedIndex]);
+            if (bookingAvailable) hotel.Book(dateTimePicker1.Value, dateTimePicker2.Value, user, hotel.HotelRoom[cmbBoxListRoom.SelectedIndex]);
             else hotel.Book(alternativeStart[cmbBoxListRoom.SelectedIndex], alternativeFinish[cmbBoxListRoom.SelectedIndex], user, hotel.HotelRoom[cmbBoxListRoom.SelectedIndex]);
             MessageBox.Show("Заброньовано");
             SearchRooms();
         }
 
-        private void button2_Click(object sender, EventArgs e)//кнопка шукати
+        private void searchButtonClick(object sender, EventArgs e)//кнопка шукати
         {
             SearchRooms();
         }
 
-        private void button1_Click(object sender, EventArgs e)//настройка акаунту
+        private void AccountSettingsButton(object sender, EventArgs e)//настройка акаунту
         {
             SettingAccount settingAccount = new SettingAccount(hotel, user);
             settingAccount.ShowDialog();
             SetInfoForUser();
         }
 
-        private void cmbBoxListRoom_SelectedIndexChanged(object sender, EventArgs e)//вибрали інший номер
+        private void OnRoomSelected(object sender, EventArgs e)//вибрали інший номер
         {
             ShowRoom(searchRoom[cmbBoxListRoom.SelectedIndex]);
-            if (cmbBoxListRoom.SelectedIndex != -1) panel1.Visible = true;
+            if (cmbBoxListRoom.SelectedIndex != -1) selectedRoomDetails.Visible = true;
         }
         public void ShowRoom(HotelRoom hotelRoom)//показати номер
         {
-            groupBox1.Visible = true;
+            availebleRoomsContainer.Visible = true;
             countStar.Text = hotelRoom.CountStar.ToString();
             countRoom.Text = hotelRoom.CountRoom.ToString();
             countPlace.Text = hotelRoom.CountPlace.ToString();
@@ -86,18 +86,18 @@ namespace cursovaCSharp.forms
             houseApplication.Text = hotelRoom.HouseholdAppliances;
             if (hotelRoom.CountStar == 5)
             {
-                panelAmenities.Visible = true;
+                amenitiesPanel.Visible = true;
                 Amenities.Text = hotelRoom.Amenities.ToString();
             }
-            else panelAmenities.Visible = false;
-            if (!isSearchTrue)
+            else amenitiesPanel.Visible = false;
+            if (!bookingAvailable)
             {
                 panel3.Visible = true;
-                panelAlternative.Visible = true;
+                bookingStatusPanel.Visible = true;
                 lblDateStart.Text = alternativeStart[cmbBoxListRoom.SelectedIndex].ToString().Remove(10);
                 lblDateFinish.Text = alternativeFinish[cmbBoxListRoom.SelectedIndex].ToString().Remove(10);
             }
-            else panelAlternative.Visible = false;
+            else bookingStatusPanel.Visible = false;
 
         }
     }

@@ -72,7 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="classes\Day.cs" />
+    <Compile Include="classes\BookingDayDetails.cs" />
     <Compile Include="classes\History.cs" />
     <Compile Include="classes\Hotel.cs" />
     <Compile Include="classes\HotelRoom.cs" />
@@ -96,11 +96,11 @@
     <Compile Include="forms\Register.Designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
-    <Compile Include="forms\SearchHotelRoomTwo.cs">
+    <Compile Include="forms\HotelRoomSearch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="forms\SearchHotelRoomTwo.Designer.cs">
-      <DependentUpon>SearchHotelRoomTwo.cs</DependentUpon>
+    <Compile Include="forms\HotelRoomSearch.Designer.cs">
+      <DependentUpon>HotelRoomSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="forms\SettingAccount.cs">
       <SubType>Form</SubType>
@@ -119,8 +119,8 @@
     <EmbeddedResource Include="forms\Register.resx">
       <DependentUpon>Register.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="forms\SearchHotelRoomTwo.resx">
-      <DependentUpon>SearchHotelRoomTwo.cs</DependentUpon>
+    <EmbeddedResource Include="forms\HotelRoomSearch.resx">
+      <DependentUpon>HotelRoomSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\SettingAccount.resx">
       <DependentUpon>SettingAccount.cs</DependentUpon>

@@ -9,39 +9,39 @@ using System.Threading.Tasks;
 namespace cursovaCSharp.classes
 {
     [Serializable]
-    public class Day
+    public class BookingDayDetails
     {
         [JsonProperty("NumberDay")]
         public int NumberDay { get; set; }
-        [JsonProperty("Mounth")]
-        public int Mounth { get; set; }
+        [JsonProperty("Month")]
+        public int Month { get; set; }
         [JsonProperty("Year")]
         public int Year { get; set; }
         [JsonProperty("IsFree")]
         public bool IsFree { get; set; }
         [JsonProperty("HumanWhoReservation")]
-        public User HumanWhoReservation { get; set; }
-        public Day(int numberDay, int mounth, int year)
+        public User User { get; set; }
+        public BookingDayDetails(int numberDay, int mounth, int year)
         {
             NumberDay = numberDay;
-            Mounth = mounth;
+            Month = mounth;
             Year = year;
             IsFree = true;
-            HumanWhoReservation = new User();
+            User = new User();
         }
-        public Day()
+        public BookingDayDetails()
         {
             NumberDay = 0;
-            Mounth = 0;
+            Month = 0;
             Year = 0;
             IsFree = true;
-            HumanWhoReservation = new User();
+            User = new User();
         }
         public bool SetDayBooked(User human)//зробити день заброньованим
         {
             if (!IsFree) return false;
             IsFree = false;
-            HumanWhoReservation = human;
+            User = human;
             return true;
         }
     }

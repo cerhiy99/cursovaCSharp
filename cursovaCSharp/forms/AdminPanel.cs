@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Day = cursovaCSharp.classes.Day;
+using BookingDayDetails = cursovaCSharp.classes.BookingDayDetails;
 
 namespace cursovaCSharp.forms
 {
@@ -59,7 +59,7 @@ namespace cursovaCSharp.forms
             while (dateStart.Value.Day != dateFinish.Value.Day || dateStart.Value.Month != dateFinish.Value.Month ||
                 dateStart.Value.Year != dateFinish.Value.Year)//поки початковий день != кінцевому дню добавити в кімнаті день в який можна записатися
             {
-                Day newDay = new Day(dateStart.Value.Day, dateStart.Value.Month, dateStart.Value.Year);
+                BookingDayDetails newDay = new Day(dateStart.Value.Day, dateStart.Value.Month, dateStart.Value.Year);
                 newHotelRoom.DateReservation.Add(newDay);
                 dateStart.Value = dateStart.Value.AddDays(1);
             }
