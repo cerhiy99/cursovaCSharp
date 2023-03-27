@@ -102,7 +102,7 @@
             this.button2.TabIndex = 39;
             this.button2.Text = "шукати";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.searchButtonClick);
+            this.button2.Click += new System.EventHandler(this.SearchButtonClick);
             // 
             // numericUpDown2
             // 

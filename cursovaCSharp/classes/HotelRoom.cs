@@ -33,7 +33,7 @@ namespace cursovaCSharp.classes
         public string HouseholdAppliances { get; set; }
 
         [JsonProperty("DateReservation")]
-        public List<BookingDayDetails> DateReservation { get; set; }//
+        public List<BookingDateDetails> DateReservation { get; set; }//
         [JsonProperty("ListAmenities")]
         public string Amenities { get; set; }
         public HotelRoom()
@@ -54,7 +54,7 @@ namespace cursovaCSharp.classes
             CountWindow = countWindow;
             CountPlace = countPlace;
             Price = price;
-            DateReservation = new List<BookingDayDetails>();
+            DateReservation = new List<BookingDateDetails>();
             HouseholdAppliances = householdAppliances;
             Amenities = amenities;
         }

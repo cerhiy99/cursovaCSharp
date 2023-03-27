@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BookingDayDetails = cursovaCSharp.classes.BookingDayDetails;
+using BookingDayDetails = cursovaCSharp.classes.BookingDateDetails;
 
 namespace cursovaCSharp.forms
 {
@@ -45,9 +45,9 @@ namespace cursovaCSharp.forms
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void CreateRoomButton(object sender, EventArgs e)
         {
-            if (!Hotel.IsDateDayMore(dateStart.Value, new Day(dateFinish.Value.Day, dateFinish.Value.Month, dateFinish.Value.Year)))
+            if (!Hotel.IsDateDayMore(dateStart.Value, new BookingDateDetails(dateFinish.Value.Day, dateFinish.Value.Month, dateFinish.Value.Year)))
             {
                 MessageBox.Show("початковий день не може бути більший або рівний за кінцевий");
                 return;
@@ -59,7 +59,7 @@ namespace cursovaCSharp.forms
             while (dateStart.Value.Day != dateFinish.Value.Day || dateStart.Value.Month != dateFinish.Value.Month ||
                 dateStart.Value.Year != dateFinish.Value.Year)//поки початковий день != кінцевому дню добавити в кімнаті день в який можна записатися
             {
-                BookingDayDetails newDay = new Day(dateStart.Value.Day, dateStart.Value.Month, dateStart.Value.Year);
+                BookingDayDetails newDay = new BookingDateDetails(dateStart.Value.Day, dateStart.Value.Month, dateStart.Value.Year);
                 newHotelRoom.DateReservation.Add(newDay);
                 dateStart.Value = dateStart.Value.AddDays(1);
             }

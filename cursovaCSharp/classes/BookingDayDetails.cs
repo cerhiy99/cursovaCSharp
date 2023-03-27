@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 namespace cursovaCSharp.classes
 {
     [Serializable]
-    public class BookingDayDetails
+    public class BookingDateDetails
+
     {
         [JsonProperty("NumberDay")]
         public int NumberDay { get; set; }
@@ -21,7 +22,7 @@ namespace cursovaCSharp.classes
         public bool IsFree { get; set; }
         [JsonProperty("HumanWhoReservation")]
         public User User { get; set; }
-        public BookingDayDetails(int numberDay, int mounth, int year)
+        public BookingDateDetails(int numberDay, int mounth, int year)
         {
             NumberDay = numberDay;
             Month = mounth;
@@ -29,7 +30,7 @@ namespace cursovaCSharp.classes
             IsFree = true;
             User = new User();
         }
-        public BookingDayDetails()
+        public BookingDateDetails()
         {
             NumberDay = 0;
             Month = 0;

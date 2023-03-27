@@ -26,11 +26,14 @@ namespace cursovaCSharp.forms
             InitializeComponent();
             SetInfoForUser();
         }
-        private void SearchRooms()
+        private void UpdateHistory()
         {
             hotel.History.CountMinStar.Add(int.Parse(minCountStar.Value.ToString()));
             hotel.History.CountMinPrice.Add(int.Parse(numericUpDown1.Value.ToString()));
             hotel.History.CountMaxPrice.Add(int.Parse(numericUpDown2.Value.ToString()));
+        }
+        private void SearchRooms()
+        {
             cmbBoxListRoom.Items.Clear();
             List<HotelRoom> rooms = hotel.SearchHotelRoom(((int)minCountStar.Value), ((int)numericUpDown2.Value), ((int)numericUpDown1.Value),
                 dateTimePicker1.Value, dateTimePicker2.Value, out bookingAvailable, alternativeStart, alternativeFinish);//пошук номерів які підходять
@@ -57,8 +60,9 @@ namespace cursovaCSharp.forms
             SearchRooms();
         }
 
-        private void searchButtonClick(object sender, EventArgs e)//кнопка шукати
+        private void SearchButtonClick(object sender, EventArgs e)//кнопка шукати
         {
+            UpdateHistory();
             SearchRooms();
         }
 
